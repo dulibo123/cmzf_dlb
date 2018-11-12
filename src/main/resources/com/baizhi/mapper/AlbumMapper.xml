@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.AlbumDAO">
+    <resultMap id="albumRs" type="com.baizhi.entity.Album">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="publishDate" column="publishDate"/>
+        <result property="coverImg" column="coverImg"/>
+         <result property="score" column="score"/>
+        <result property="author" column="author"/>
+        <result property="broadCast" column="broadCast"/>
+        <result property="brief" column="brief"/>
+        <collection property="children" ofType="com.baizhi.entity.Chapter">
+            <id property="id" column="c1_id"/>
+            <result property="title" column="c1_title"/>
+            <result property="size" column="size"/>
+            <result property="duration" column="duration"/>
+            <result property="downPath" column="downPath"/>
+            <result property="uploadDate" column="uploadDate"/>
+        </collection>
+    </resultMap>
+
+    <select id="queryByPage"  resultMap="albumRs">
+        select a1.id,a1.title,a1.publishDate,a1.coverImg,a1.score,a1.author,a1.broadCast,a1.brief,
+            c1.id c1_id,c1.title c1_title,c1.size,c1.duration,c1.downPath,c1.uploadDate
+            from cmfz_album a1
+            left join cmfz_chapter c1
+            on c1.album_id=a1.id
+            limit #{start},#{rows}
+    </select>
+
+    <select id="queryTotals" resultType="long">
+        select count(id) from cmfz_album
+    </select>
+
+    <insert id="insert">
+        insert into
+         cmfz_album(id,title,publishDate,coverImg,score,author,broadCast,brief)
+          values(#{id},#{title},#{publishDate},#{coverImg},#{score},#{author},#{broadCast},#{brief})
+
+    </insert>
+
+    <select id="query" resultType="com.baizhi.entity.Album">
+        select id,title,publishDate,coverImg,score,author,broadCast,brief from cmfz_album where id=#{id}
+    </select>
+
+
+</mapper>

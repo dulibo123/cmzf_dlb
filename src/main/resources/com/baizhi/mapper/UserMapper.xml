@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.UserDAO">
+
+    <insert id="insert">
+          insert into cmfz_user(id,phoneNum,username,password,salt,province,city,nickName,gender,sign,headPic,status,date,guru_id) values(#{id},#{phoneNum},#{username},#{password},#{salt},#{province},#{city},#{nickName},#{gender},#{sign},#{headPic},#{status},#{date},#{guru.id})
+    </insert>
+    <select id="queryByPage" resultType="com.baizhi.entity.User">
+          select id,phoneNum,username,password,salt,province,city,nickName,gender,sign,headPic,status,date,guru_id from cmfz_user limit #{start},#{rows}
+    </select>
+
+    <select id="query" resultType="com.baizhi.entity.User">
+          select id,phoneNum,username,password,salt,province,city,nickName,gender,sign,headPic,status,date,guru_id from cmfz_user where username=#{username} and #{password}
+    </select>
+
+    <select id="queryTotals" resultType="long">
+          select count(id) from cmfz_user
+    </select>
+
+  <update id="update">
+        update cmfz_user set phoneNum=#{phoneNum},username=#{username},password=#{password},salt=#{salt},province=#{province},city=#{city},nickName=#{nickName},gender=#{gender},sign=#{sign},headPic=#{headPic},status=#{status},date=#{date},guru_id=#{guru.id} where id=#{id}
+    </update>
+
+
+</mapper>

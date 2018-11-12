@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.GuruDAO">
+
+
+    <select id="queryByPage"  resultType="com.baizhi.entity.Guru">
+          select id,title,headPic,gender from cmfz_guru
+    </select>
+
+    <select id="queryTotals" resultType="long">
+        select count(id) from cmfz_guru
+    </select>
+
+    <insert id="insert">
+        insert into cmfz_guru(id,title,headPic,gender) values(#{id},#{title},#{headPic},#{gender})
+    </insert>
+
+    <delete id="delete">
+        delete from cmfz_guru where id=#{id}
+    </delete>
+
+    <update id="update">
+        update cmfz_guru set title=#{title},headPic=#{headPic},gender=#{gender} where id=#{id}
+    </update>
+
+    <select id="queryAll" resultType="com.baizhi.entity.Guru">
+        select id,title,headPic,gender from cmfz_guru
+    </select>
+
+    <select id="query" resultType="com.baizhi.entity.Guru">
+        select id,title,headPic,gender from cmfz_guru where id=#{id}
+    </select>
+
+
+</mapper>
