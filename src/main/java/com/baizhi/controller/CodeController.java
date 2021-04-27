@@ -16,18 +16,20 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-import org.patchca.background.BackgroundFactory;
-import org.patchca.color.ColorFactory;
-import org.patchca.color.RandomColorFactory;
-import org.patchca.filter.ConfigurableFilterFactory;
-import org.patchca.filter.library.AbstractImageOp;
-import org.patchca.filter.library.WobbleImageOp;
-import org.patchca.font.RandomFontFactory;
-import org.patchca.service.Captcha;
-import org.patchca.service.ConfigurableCaptchaService;
-import org.patchca.text.renderer.BestFitTextRenderer;
-import org.patchca.text.renderer.TextRenderer;
-import org.patchca.word.RandomWordFactory;
+import com.github.bingoohuang.patchca.background.BackgroundFactory;
+import com.github.bingoohuang.patchca.color.ColorFactory;
+import com.github.bingoohuang.patchca.color.RandomColorFactory;
+import com.github.bingoohuang.patchca.custom.ConfigurableCaptchaService;
+import com.github.bingoohuang.patchca.filter.ConfigurableFilterFactory;
+import com.github.bingoohuang.patchca.filter.library.AbstractImageOp;
+import com.github.bingoohuang.patchca.filter.library.WobbleImageOp;
+import com.github.bingoohuang.patchca.font.FontFactory;
+import com.github.bingoohuang.patchca.font.RandomFontFactory;
+import com.github.bingoohuang.patchca.service.Captcha;
+import com.github.bingoohuang.patchca.text.renderer.BestFitTextRenderer;
+import com.github.bingoohuang.patchca.text.renderer.TextRenderer;
+import com.github.bingoohuang.patchca.word.RandomWordFactory;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -116,7 +118,32 @@ public class CodeController{
 		configurableCaptchaService.setFilterFactory(filterFactory);
 
 		// 文字渲染器设置
-		textRenderer = new BestFitTextRenderer();
+		textRenderer = new TextRenderer() {
+			@Override
+			public void setLeftMargin(int i) {
+
+			}
+
+			@Override
+			public void setRightMargin(int i) {
+
+			}
+
+			@Override
+			public void setTopMargin(int i) {
+
+			}
+
+			@Override
+			public void setBottomMargin(int i) {
+
+			}
+
+			@Override
+			public void draw(String s, BufferedImage bufferedImage, FontFactory fontFactory, ColorFactory colorFactory) {
+
+			}
+		};
 		textRenderer.setBottomMargin(3);
 		textRenderer.setTopMargin(3);
 		configurableCaptchaService.setTextRenderer(textRenderer);
